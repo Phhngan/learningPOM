@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<suite parallel="tests" thread-count="2" name="Suite">
+
+	<test name="Test run with Chrome browser">
+		<parameter name="browser" value="Chrome" />
+		<classes>
+			<class name="com.nopcommerce.demo.TS_01_Register" />
+		</classes>
+	</test> <!-- Test -->
+</suite> <!-- Suite -->

@@ -4,20 +4,22 @@ import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 import pageObjects.LoginPageObject;
 import common.BaseTest;
+import common.GlobalConstants;
 
 public class TS_02_Login extends BaseTest {
 	WebDriver driver;
 	LoginPageObject loginPage;
-	String email = "hngan@gmail.com";
-
+	
+	@Parameters({"browser"})
 	@BeforeClass
-	public void beforeClass() {
+	public void beforeClass(String browserName) {
 		String urlPage = "https://demo.nopcommerce.com/login?returnUrl=%2F";
-		driver = getBrowserDriver(urlPage);
+		driver = getBrowserDriver(urlPage, browserName);
 		loginPage = new LoginPageObject(driver);
 	}
 
@@ -53,7 +55,7 @@ public class TS_02_Login extends BaseTest {
 	@Test
 	public void TC_04_RegisteredEmailAndEmptyPass() {
 		loginPage.refeshCurrentPage(driver);
-		loginPage.enterTextToEmailTextbox(email);
+		loginPage.enterTextToEmailTextbox(GlobalConstants.email);
 		loginPage.clickToLoginButton();
 		Assert.assertTrue(loginPage
 				.checkUnregisteredEmailMessage("Login was unsuccessful. Please correct the errors and try again."));
@@ -63,7 +65,7 @@ public class TS_02_Login extends BaseTest {
 	@Test
 	public void TC_05_RegisteredEmailAndIncorrectPass() {
 		loginPage.refeshCurrentPage(driver);
-		loginPage.enterTextToEmailTextbox(email);
+		loginPage.enterTextToEmailTextbox(GlobalConstants.email);
 		loginPage.enterPasswordToTextbox("888888");
 		loginPage.clickToLoginButton();
 		Assert.assertTrue(loginPage
@@ -74,7 +76,7 @@ public class TS_02_Login extends BaseTest {
 	@Test
 	public void TC_06_LoginSuccess() {
 		loginPage.refeshCurrentPage(driver);
-		loginPage.enterTextToEmailTextbox(email);
+		loginPage.enterTextToEmailTextbox(GlobalConstants.email);
 		loginPage.enterPasswordToTextbox("123456");
 		loginPage.clickToLoginButton();
 		Assert.assertTrue(loginPage.checkLoginSuccess("https://demo.nopcommerce.com/"));

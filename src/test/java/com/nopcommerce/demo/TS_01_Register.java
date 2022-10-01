@@ -4,9 +4,11 @@ import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 import common.BaseTest;
+import common.GlobalConstants;
 import pageObjects.HomePageObject;
 import pageObjects.RegisterPageObject;
 
@@ -14,16 +16,12 @@ public class TS_01_Register extends BaseTest {
 	WebDriver driver;
 	RegisterPageObject registerPage;
 	HomePageObject homePage;
-	String firstName = "Ha";
-	String lastName = "Ngan";
-	String email = "hngan@gmail.com";
-	String password = "123456";
-	String cfpassword = "123456";
 
+	@Parameters({"browser"})
 	@BeforeClass
-	public void beforeClass() {
+	public void beforeClass(String browserName) {
 		String urlPage = "https://demo.nopcommerce.com/register?returnUrl=%2F";
-		driver = getBrowserDriver(urlPage);
+		driver = getBrowserDriver(urlPage, browserName);
 		registerPage = new RegisterPageObject(driver);
 	}
 
@@ -65,11 +63,11 @@ public class TS_01_Register extends BaseTest {
 //		registerPage.enterTextToEmailBox(email);
 //		registerPage.enterTextToPasswordBox(password);
 //		registerPage.enterTextToConfirmPasswordBox(cfpassword);
-		registerPage.enterTextToTextBox("FirstName", firstName);
-		registerPage.enterTextToTextBox("LastName", lastName);
-		registerPage.enterTextToTextBox("Email", email);
-		registerPage.enterTextToTextBox("Password", password);
-		registerPage.enterTextToTextBox("ConfirmPassword", cfpassword);
+		registerPage.enterTextToTextBox("FirstName", GlobalConstants.firstName);
+		registerPage.enterTextToTextBox("LastName", GlobalConstants.lastName);
+		registerPage.enterTextToTextBox("Email", GlobalConstants.email);
+		registerPage.enterTextToTextBox("Password", GlobalConstants.password);
+		registerPage.enterTextToTextBox("ConfirmPassword", GlobalConstants.password);
 		registerPage.clickToRegisterButton();
 		Assert.assertTrue(registerPage.checkResultMessage("Your registration completed"));
 		registerPage.clickToLogOutButton();
@@ -85,11 +83,11 @@ public class TS_01_Register extends BaseTest {
 //		registerPage.enterTextToEmailBox(email);
 //		registerPage.enterTextToPasswordBox(password);
 //		registerPage.enterTextToConfirmPasswordBox(cfpassword);
-		registerPage.enterTextToTextBox("FirstName", firstName);
-		registerPage.enterTextToTextBox("LastName", lastName);
-		registerPage.enterTextToTextBox("Email", email);
-		registerPage.enterTextToTextBox("Password", password);
-		registerPage.enterTextToTextBox("ConfirmPassword", cfpassword);
+		registerPage.enterTextToTextBox("FirstName", GlobalConstants.firstName);
+		registerPage.enterTextToTextBox("LastName", GlobalConstants.lastName);
+		registerPage.enterTextToTextBox("Email", GlobalConstants.email);
+		registerPage.enterTextToTextBox("Password", GlobalConstants.password);
+		registerPage.enterTextToTextBox("ConfirmPassword", GlobalConstants.password);
 		registerPage.clickToRegisterButton();
 		Assert.assertTrue(registerPage.checkExistEmailtMessage("The specified email already exists"));
 	}
@@ -102,9 +100,9 @@ public class TS_01_Register extends BaseTest {
 //		registerPage.enterTextToEmailBox(email);
 //		registerPage.enterTextToPasswordBox("123");
 //		registerPage.enterTextToConfirmPasswordBox("123");
-		registerPage.enterTextToTextBox("FirstName", firstName);
-		registerPage.enterTextToTextBox("LastName", lastName);
-		registerPage.enterTextToTextBox("Email", email);
+		registerPage.enterTextToTextBox("FirstName", GlobalConstants.firstName);
+		registerPage.enterTextToTextBox("LastName", GlobalConstants.lastName);
+		registerPage.enterTextToTextBox("Email", GlobalConstants.email);
 		registerPage.enterTextToTextBox("Password", "123");
 		registerPage.enterTextToTextBox("ConfirmPassword", "123");
 		registerPage.clickToRegisterButton();
@@ -120,10 +118,10 @@ public class TS_01_Register extends BaseTest {
 //		registerPage.enterTextToEmailBox(email);
 //		registerPage.enterTextToPasswordBox(password);
 //		registerPage.enterTextToConfirmPasswordBox("112233");
-		registerPage.enterTextToTextBox("FirstName", firstName);
-		registerPage.enterTextToTextBox("LastName", lastName);
-		registerPage.enterTextToTextBox("Email", email);
-		registerPage.enterTextToTextBox("Password", password);
+		registerPage.enterTextToTextBox("FirstName", GlobalConstants.firstName);
+		registerPage.enterTextToTextBox("LastName", GlobalConstants.lastName);
+		registerPage.enterTextToTextBox("Email", GlobalConstants.email);
+		registerPage.enterTextToTextBox("Password", GlobalConstants.password);
 		registerPage.enterTextToTextBox("ConfirmPassword", "112233");
 		registerPage.clickToRegisterButton();
 		Assert.assertTrue(registerPage.checkNotMatchPasswordMessage("The password and confirmation password do not match."));
