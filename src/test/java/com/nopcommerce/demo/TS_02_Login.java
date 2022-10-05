@@ -14,8 +14,8 @@ import common.GlobalConstants;
 public class TS_02_Login extends BaseTest {
 	WebDriver driver;
 	LoginPageObject loginPage;
-	
-	@Parameters({"browser"})
+
+	@Parameters({ "browser" })
 	@BeforeClass
 	public void beforeClass(String browserName) {
 		String urlPage = "https://demo.nopcommerce.com/login?returnUrl=%2F";
@@ -47,9 +47,9 @@ public class TS_02_Login extends BaseTest {
 		loginPage.refeshCurrentPage(driver);
 		loginPage.enterTextToEmailTextbox("hi@yahoo.com");
 		loginPage.clickToLoginButton();
-		Assert.assertTrue(loginPage
-				.checkUnregisteredEmailMessage("Login was unsuccessful. Please correct the errors and try again."));
-		Assert.assertTrue(loginPage.checkUnregisteredEmailMessage("No customer account found"));
+		Assert.assertTrue(
+				loginPage.checkErrorMessage("Login was unsuccessful. Please correct the errors and try again."));
+		Assert.assertTrue(loginPage.checkErrorMessage("No customer account found"));
 	}
 
 	@Test
@@ -57,9 +57,9 @@ public class TS_02_Login extends BaseTest {
 		loginPage.refeshCurrentPage(driver);
 		loginPage.enterTextToEmailTextbox(GlobalConstants.email);
 		loginPage.clickToLoginButton();
-		Assert.assertTrue(loginPage
-				.checkUnregisteredEmailMessage("Login was unsuccessful. Please correct the errors and try again."));
-		Assert.assertTrue(loginPage.checkUnregisteredEmailMessage("The credentials provided are incorrect"));
+		Assert.assertTrue(
+				loginPage.checkErrorMessage("Login was unsuccessful. Please correct the errors and try again."));
+		Assert.assertTrue(loginPage.checkErrorMessage("The credentials provided are incorrect"));
 	}
 
 	@Test
@@ -68,16 +68,16 @@ public class TS_02_Login extends BaseTest {
 		loginPage.enterTextToEmailTextbox(GlobalConstants.email);
 		loginPage.enterPasswordToTextbox("888888");
 		loginPage.clickToLoginButton();
-		Assert.assertTrue(loginPage
-				.checkUnregisteredEmailMessage("Login was unsuccessful. Please correct the errors and try again."));
-		Assert.assertTrue(loginPage.checkUnregisteredEmailMessage("The credentials provided are incorrect"));
+		Assert.assertTrue(
+				loginPage.checkErrorMessage("Login was unsuccessful. Please correct the errors and try again."));
+		Assert.assertTrue(loginPage.checkErrorMessage("The credentials provided are incorrect"));
 	}
 
 	@Test
 	public void TC_06_LoginSuccess() {
 		loginPage.refeshCurrentPage(driver);
 		loginPage.enterTextToEmailTextbox(GlobalConstants.email);
-		loginPage.enterPasswordToTextbox("123456");
+		loginPage.enterPasswordToTextbox(GlobalConstants.password);
 		loginPage.clickToLoginButton();
 		Assert.assertTrue(loginPage.checkLoginSuccess("https://demo.nopcommerce.com/"));
 

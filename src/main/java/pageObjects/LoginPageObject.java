@@ -28,7 +28,7 @@ public class LoginPageObject extends BasePage {
 		sendKeysToElement(driver, LoginPageUI.EMAIL_TEXTBOX, email);
 	}
 	
-	public boolean checkUnregisteredEmailMessage(String value) {
+	public boolean checkErrorMessage(String value) {
 		String errorMessage = getTextOfElement(driver, LoginPageUI.EMAIL_ERROR_MESSAGE);
 		return errorMessage.contains(value);
 	}

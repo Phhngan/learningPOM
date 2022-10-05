@@ -1,9 +1,12 @@
 package common;
 
+import java.util.List;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -31,6 +34,7 @@ public class BasePage {
 		driver.navigate().refresh();
 	}
 
+
 	/////////////////////////////////////////////////
 
 	public By getByXpath(String locator) {
@@ -47,6 +51,12 @@ public class BasePage {
 
 	public void clickToElement(WebDriver driver, String locator) {
 		getElement(driver, locator).click();
+	}
+	public void doubleClickToElement(WebDriver driver, String locator) {
+		WebElement doubleClick =  getElement(driver, locator);
+		Actions action = new Actions(driver);
+		action.doubleClick(doubleClick).perform();
+
 	}
 
 	public void sendKeysToElement(WebDriver driver, String locator, String valueInput) {
@@ -69,7 +79,14 @@ public class BasePage {
 		explicitWait = new WebDriverWait(driver, GlobalConstants.short_timeout);
 		explicitWait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath(locator)));
 	}
-
+	public void selectDropdown(WebDriver driver, String locator, String value){
+		Select select = new Select(getElement(driver, locator));
+		select.selectByVisibleText(value);
+		
+	}
+	public String getAttributeValue(WebDriver driver, String locator, String attributeName) {
+		return getElement(driver, locator).getAttribute(attributeName);
+	}
 	//////////////////////////////////////////////////
 
 	public String getDynamicLocator(String locator, String... params) {
@@ -104,5 +121,12 @@ public class BasePage {
 	public String getAttributeValue(WebDriver driver, String locator, String attributeName, String ...params) {
 		return getElement(driver, locator, params).getAttribute(attributeName);
 	}
-
+	
+	public List<WebElement> getElements(WebDriver driver, String locator) {
+		return driver.findElements(getByXpath(locator));
+	}
+//
+//	public String getTextOfElements(WebDriver driver, String locator) {
+//
+//	}
 }

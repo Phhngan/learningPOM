@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<suite parallel="false" name="Suite">
+  <test name="Test">
+  <parameter name="browser" value="chrome" />
+    <classes>
+      <class name="com.nopcommerce.demo.Demo_Excel"/>
+    </classes>
+  </test> <!-- Test -->
+</suite> <!-- Suite -->

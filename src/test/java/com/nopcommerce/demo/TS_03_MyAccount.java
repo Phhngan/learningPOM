@@ -12,8 +12,8 @@ import common.GlobalConstants;
 import pageObjects.AddressesObject;
 import pageObjects.ChangePassObject;
 import pageObjects.HomePageObject;
+import pageObjects.LoginPageObject;
 import pageObjects.MyAccountObject;
-
 
 public class TS_03_MyAccount extends BaseTest {
 	WebDriver driver;
@@ -21,13 +21,14 @@ public class TS_03_MyAccount extends BaseTest {
 	AddressesObject addressPage;
 	ChangePassObject changePassPage;
 	HomePageObject homePage;
-	
-	String company ="test";
+	LoginPageObject loginPage;
+
+	String company = "test";
 	String day = "2";
 	String month = "January";
 	String year = "2002";
 
-	@Parameters({"browser"})
+	@Parameters({ "browser" })
 	@BeforeClass
 	public void beforeClass(String browserName) {
 		String urlPage = "https://demo.nopcommerce.com/customer/info";
@@ -42,14 +43,17 @@ public class TS_03_MyAccount extends BaseTest {
 	public void afterClass() {
 		driver.quit();
 	}
+
 	@Test
-	public void TC_00_Login() {
-		myAccount.refeshCurrentPage(driver);
-		myAccount.enterTextToTextBox(GlobalConstants.email, "Email");
-		myAccount.enterTextToTextBox(GlobalConstants.password, "Password");
-		myAccount.clickToLoginButton();
+	public void TC_00_LoginSuccess() {
+		loginPage = new LoginPageObject(driver);
+		loginPage.refeshCurrentPage(driver);
+		loginPage.enterTextToEmailTextbox(GlobalConstants.email);
+		loginPage.enterPasswordToTextbox(GlobalConstants.password);
+		loginPage.clickToLoginButton();
 	}
-	@Test 
+
+	@Test
 	public void TC_01_UpdateInfo() {
 		myAccount.refeshCurrentPage(driver);
 		myAccount.checkGender("female");
@@ -60,6 +64,7 @@ public class TS_03_MyAccount extends BaseTest {
 		myAccount.clickToSaveButton();
 		Assert.assertTrue(myAccount.checkCompanyName(company));
 	}
+
 	@Test
 	public void TC_02_UpdateAddress() {
 		myAccount.refeshCurrentPage(driver);
@@ -77,7 +82,7 @@ public class TS_03_MyAccount extends BaseTest {
 		addressPage.clickToSaveButton();
 		Assert.assertTrue(addressPage.addSuccess(GlobalConstants.email));
 	}
-	
+
 	@Test
 	public void TC_03_ChangePassword() {
 		myAccount.refeshCurrentPage(driver);
@@ -89,6 +94,17 @@ public class TS_03_MyAccount extends BaseTest {
 		changePassPage.clickToCloseStatus();
 		changePassPage.clickToLogOutLink();
 		homePage.clickToLoginLink();
+		loginPage.enterTextToEmailTextbox(GlobalConstants.email);
+		loginPage.enterPasswordToTextbox(GlobalConstants.password);
+		loginPage.clickToLoginButton();
+		Assert.assertTrue(
+				loginPage.checkErrorMessage("Login was unsuccessful. Please correct the errors and try again."));
+		Assert.assertTrue(loginPage.checkErrorMessage("The credentials provided are incorrect"));
+		loginPage.refeshCurrentPage(driver);
+		loginPage.enterTextToEmailTextbox(GlobalConstants.email);
+		loginPage.enterPasswordToTextbox(GlobalConstants.newPassword);
+		loginPage.clickToLoginButton();
+		Assert.assertTrue(loginPage.checkLoginSuccess("https://demo.nopcommerce.com/"));
 	}
-	
+
 }

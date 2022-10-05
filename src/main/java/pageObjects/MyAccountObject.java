@@ -3,6 +3,7 @@ package pageObjects;
 import org.openqa.selenium.WebDriver;
 
 import common.BasePage;
+import pageUIs.LoginPageUI;
 import pageUIs.MyAccountUI;
 
 
@@ -37,8 +38,8 @@ public class MyAccountObject extends BasePage {
 		 return check.equals(value);
 	}
 	public void clickToLoginButton() {
-		waitForElementClickable(driver, MyAccountUI.LOGIN_BUTTON);
-		clickToElement(driver, MyAccountUI.LOGIN_BUTTON);
+		waitForElementClickable(driver, LoginPageUI.LOGIN_BUTTON);
+		clickToElement(driver, LoginPageUI.LOGIN_BUTTON);
 	}
 	public void clickToAddressLink() {
 		waitForElementClickable(driver, MyAccountUI.ADDRESS_LINK);
