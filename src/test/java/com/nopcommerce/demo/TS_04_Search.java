@@ -42,10 +42,12 @@ public class TS_04_Search extends BaseTest {
 		Assert.assertTrue(searchPage.checkNoResult("No products were found that matched your criteria."));
 	}
 	
-//	@Test
+	@Test
 	public void TC_03_SearchLenovo() {
 		searchPage.refeshCurrentPage(driver);
 		searchPage.enterTextToSearch("Lenovo");
+		searchPage.clickToSearchButton();
+		Assert.assertTrue(searchPage.isSearchProductTitleDisplayedOnPageAsExpected("Lenovo"));
 	}
 	
 	@Test

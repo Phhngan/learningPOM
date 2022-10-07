@@ -1,9 +1,7 @@
 package pageObjects;
 
-import java.util.List;
 
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 
 import common.BasePage;
 
@@ -59,10 +57,7 @@ public class SearchPageObject extends BasePage {
 		return productTitle.contains(value);
 	}
 	
-//	public void verifyProductName(String text) {
-//		List<WebElement> productNames = getElements(driver, SearchPageUI.PRODUCT_TITLE);
-//		for(WebElement item : productNames) {
-//			WebElement name = getTextOfElement(driver, SearchPageUI.PRODUCT_TITLE);
-//		}
-//	}
+	public boolean isSearchProductTitleDisplayedOnPageAsExpected(String value) {
+		return isTitleDisplayedOnPage(driver, SearchPageUI.PRODUCT_TITLE, value);
+	}
 }
